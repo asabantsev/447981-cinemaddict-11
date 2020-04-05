@@ -296,7 +296,7 @@ render(siteFilmsElement, createFilmsListTemplate(), `beforeend`);
 const mainFilmsContainer = siteFilmsElement.querySelector(`.films-list__container`);
 for (let i = 0; i < MAIN_FILMS_COUNT; i++) {
   render(mainFilmsContainer, createFilmCardTemplate(), `beforeend`);
-};
+}
 
 const mainFilmsList = siteFilmsElement.querySelector(`.films-list`);
 render(mainFilmsList, createShowMoreButtonTemplate(), `beforeend`);
@@ -308,12 +308,12 @@ const extraFilmsElement = siteFilmsElement.querySelectorAll(`.films-list--extra`
 const topRatedFilmsContainer = extraFilmsElement[0].querySelector(`.films-list__container`);
 for (let i = 0; i < TOP_RATED_FILMS_COUNT; i++) {
   render(topRatedFilmsContainer, createFilmCardTemplate(), `beforeend`);
-};
+}
 
 const mostCommentedFilmsContainer = extraFilmsElement[1].querySelector(`.films-list__container`);
 for (let i = 0; i < MOST_COMMENTED_FILMS_COUNT; i++) {
   render(mostCommentedFilmsContainer, createFilmCardTemplate(), `beforeend`);
-};
+}
 
 const siteFooterElement = document.querySelector(`.footer`);
 render(siteFooterElement, createFilmsDetailsTemplate(), `afterend`);
