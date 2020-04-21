@@ -25,6 +25,8 @@ render(siteHeaderElement, createHeaderProfileTemplate(), `beforeend`);
 
 const menuItems = generateMenuItems();
 const films = generateFilms(MAIN_FILMS_COUNT);
+const filmsTopRated = generateFilms(TOP_RATED_FILMS_COUNT);
+const filmsMostCommented = generateFilms(MOST_COMMENTED_FILMS_COUNT);
 
 const siteMainElement = document.querySelector(`.main`);
 render(siteMainElement, createSiteMenuTemplate(menuItems), `beforeend`);
@@ -34,9 +36,7 @@ const siteFilmsElement = document.querySelector(`.films`);
 render(siteFilmsElement, createFilmsListTemplate(), `beforeend`);
 
 const mainFilmsContainer = siteFilmsElement.querySelector(`.films-list__container`);
-for (let i = 0; i < films.length; i++) {
-  render(mainFilmsContainer, createFilmCardTemplate(films[i]), `beforeend`);
-}
+films.forEach((film) => render(mainFilmsContainer, createFilmCardTemplate(film), `beforeend`));
 
 const mainFilmsList = siteFilmsElement.querySelector(`.films-list`);
 render(mainFilmsList, createShowMoreButtonTemplate(), `beforeend`);
@@ -46,14 +46,10 @@ render(siteFilmsElement, createMostCommentedFilmsBlockTemplate(), `beforeend`);
 
 const extraFilmsElement = siteFilmsElement.querySelectorAll(`.films-list--extra`);
 const topRatedFilmsContainer = extraFilmsElement[0].querySelector(`.films-list__container`);
-for (let i = 0; i < TOP_RATED_FILMS_COUNT; i++) {
-  render(topRatedFilmsContainer, createFilmCardTemplate(films[i]), `beforeend`);
-}
+filmsTopRated.forEach((film) => render(topRatedFilmsContainer, createFilmCardTemplate(film), `beforeend`));
 
 const mostCommentedFilmsContainer = extraFilmsElement[1].querySelector(`.films-list__container`);
-for (let i = 0; i < MOST_COMMENTED_FILMS_COUNT; i++) {
-  render(mostCommentedFilmsContainer, createFilmCardTemplate(films[i]), `beforeend`);
-}
+filmsMostCommented.forEach((film) => render(mostCommentedFilmsContainer, createFilmCardTemplate(film), `beforeend`));
 
 const siteFooterElement = document.querySelector(`.footer`);
 render(siteFooterElement, createFilmsDetailsTemplate(films[0]), `afterend`);
