@@ -1,4 +1,6 @@
-export const createFilmsDetailsTemplate = (film) => {
+import {createElement} from "../utils.js";
+
+const createFilmsDetailsTemplate = (film) => {
   const {title, titleOriginal, rating, description, duration, country, poster, age, directorName, writersName, actorsName, releaseDate, comments, genres} = film;
 
   const createGenreMarkup = (genre) => {
@@ -153,3 +155,27 @@ export const createFilmsDetailsTemplate = (film) => {
     </section>`
   );
 };
+
+export default class FilmsDetails {
+  constructor(film) {
+    this._film = film;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmsDetailsTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

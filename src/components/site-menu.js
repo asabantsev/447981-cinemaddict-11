@@ -1,3 +1,5 @@
+import {createElement} from "../utils.js";
+
 const createSiteMenuItemMarkup = (menuItem, isActive) => {
   const {link, name, count} = menuItem;
 
@@ -6,7 +8,7 @@ const createSiteMenuItemMarkup = (menuItem, isActive) => {
   `);
 };
 
-export const createSiteMenuTemplate = (menuItems) => {
+const createSiteMenuTemplate = (menuItems) => {
   const siteMenuItemMarkup = menuItems.map((it, i) => createSiteMenuItemMarkup(it, i === 0)).join(`\n`);
 
   return (
@@ -24,3 +26,26 @@ export const createSiteMenuTemplate = (menuItems) => {
     </ul>`
   );
 };
+
+export default class SiteMenu {
+  constructor(menuItems) {
+    this._menuItems = menuItems;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createSiteMenuTemplate(this._menuItems);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
