@@ -1,4 +1,4 @@
-import {createElement} from "../utils.js";
+import {createElement} from '../utils.js';
 
 const createFilmCardTemplate = (film) => {
   const {title, rating, year, duration, genre, poster, description, commentsCount} = film;

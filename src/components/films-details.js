@@ -1,4 +1,4 @@
-import {createElement} from "../utils.js";
+import {createElement} from '../utils.js';
 
 const createFilmsDetailsTemplate = (film) => {
   const {title, titleOriginal, rating, description, duration, country, poster, age, directorName, writersName, actorsName, releaseDate, comments, genres} = film;

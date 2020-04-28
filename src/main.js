@@ -1,15 +1,15 @@
-import HeaderProfileComponent from "./components/header-profile.js";
-import SiteMenuComponent from "./components/site-menu.js";
-import FilmsBlockComponent from "./components/films-block.js";
-import FilmsListComponent from "./components/films-list.js";
-import FilmCardComponent from "./components/film-card.js";
-import ShowMoreButtonComponent from "./components/show-more-button.js";
-import TopRatedFilmsBlockComponent from "./components/top-rated-films-block.js";
-import MostCommentedFilmsBlockComponent from "./components/most-commented-films-block.js";
-import FilmsDetailsComponent from "./components/films-details.js";
-import {generateFilms} from "./mock/film.js";
-import {generateMenuItems} from "./mock/menu.js";
-import {render, RenderPosition} from "./utils.js";
+import HeaderProfileComponent from './components/header-profile.js';
+import SiteMenuComponent from './components/site-menu.js';
+import FilmsBlockComponent from './components/films-block.js';
+import FilmsListComponent from './components/films-list.js';
+import FilmCardComponent from './components/film-card.js';
+import ShowMoreButtonComponent from './components/show-more-button.js';
+import TopRatedFilmsBlockComponent from './components/top-rated-films-block.js';
+import MostCommentedFilmsBlockComponent from './components/most-commented-films-block.js';
+import FilmsDetailsComponent from './components/films-details.js';
+import {generateFilms} from './mock/film.js';
+import {generateMenuItems} from './mock/menu.js';
+import {render, RenderPosition} from './utils.js';
 
 const MAIN_FILMS_COUNT = 20;
 const TOP_RATED_FILMS_COUNT = 2;

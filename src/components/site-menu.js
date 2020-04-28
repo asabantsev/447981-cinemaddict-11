@@ -1,4 +1,4 @@
-import {createElement} from "../utils.js";
+import {createElement} from '../utils.js';
 
 const createSiteMenuItemMarkup = (menuItem, isActive) => {
   const {link, name, count} = menuItem;
