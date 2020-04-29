@@ -1,4 +1,6 @@
-export const createTopRatedFilmsBlockTemplate = () => {
+import {createElement} from '../utils.js';
+
+const createTopRatedFilmsBlockTemplate = () => {
   return (
     `<section class="films-list--extra">
       <h2 class="films-list__title">Top rated</h2>
@@ -7,3 +9,25 @@ export const createTopRatedFilmsBlockTemplate = () => {
     </section>`
   );
 };
+
+export default class TopRatedFilmsBlock {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTopRatedFilmsBlockTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
