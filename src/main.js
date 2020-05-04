@@ -3,6 +3,7 @@ import SiteMenuComponent from './components/site-menu.js';
 import FilmsBlockComponent from './components/films-block.js';
 import FilmsListComponent from './components/films-list.js';
 import FilmCardComponent from './components/film-card.js';
+import NoFilmsComponent from './components/no-films.js';
 import ShowMoreButtonComponent from './components/show-more-button.js';
 import TopRatedFilmsBlockComponent from './components/top-rated-films-block.js';
 import MostCommentedFilmsBlockComponent from './components/most-commented-films-block.js';
@@ -39,8 +40,13 @@ let showingFilmsCount = SHOWING_FILMS_COUNT_ON_START;
 films.slice(0, showingFilmsCount).forEach((film) => render(mainFilmsContainer, new FilmCardComponent(film).getElement(), RenderPosition.BEFOREEND));
 
 const mainFilmsList = siteFilmsElement.querySelector(`.films-list`);
-render(mainFilmsList, new ShowMoreButtonComponent().getElement(), RenderPosition.BEFOREEND);
 
+if (MAIN_FILMS_COUNT === 0) {
+  render(mainFilmsList, new NoFilmsComponent().getElement(), RenderPosition.BEFOREEND);
+  showMoreButton.remove();
+}
+
+render(mainFilmsList, new ShowMoreButtonComponent().getElement(), RenderPosition.BEFOREEND);
 const showMoreButton = siteMainElement.querySelector(`.films-list__show-more`);
 
 showMoreButton.addEventListener(`click`, () => {
@@ -64,9 +70,20 @@ filmsTopRated.forEach((film) => render(topRatedFilmsContainer, new FilmCardCompo
 const mostCommentedFilmsContainer = extraFilmsElement[1].querySelector(`.films-list__container`);
 filmsMostCommented.forEach((film) => render(mostCommentedFilmsContainer, new FilmCardComponent(film).getElement(), RenderPosition.BEFOREEND));
 
+const onEscKeyDown = (evt) => {
+  const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+  const filmDetails = document.querySelector(`.film-details`);
+
+  if (isEscKey) {
+    filmDetails.remove();
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  }
+};
+
 const renderFilmDetails = () => {
   const siteFooterElement = document.querySelector(`.footer`);
   render(siteFooterElement, new FilmsDetailsComponent(films[0]).getElement(), RenderPosition.AFTEREND);
+  document.addEventListener(`keydown`, onEscKeyDown);
 
   const filmDetails = document.querySelector(`.film-details`);
   const filmDetailsCloseButton = filmDetails.querySelector(`.film-details__close-btn`);
