@@ -1,5 +1,5 @@
 export const onEscKeyDown = (evt) => {
-  const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+  const isEscKey = evt.key === `Escape` || `Esc`;
   const filmDetails = document.querySelector(`.film-details`);
 
   if (isEscKey) {

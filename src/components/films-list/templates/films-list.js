@@ -1,5 +1,3 @@
-import AbstractComponent from './abstract-component.js';
-
 const createFilmsListTemplate = () => {
   return (
     `<section class="films-list">
@@ -10,8 +8,4 @@ const createFilmsListTemplate = () => {
   );
 };
 
-export default class FilmsList extends AbstractComponent {
-  getTemplate() {
-    return createFilmsListTemplate();
-  }
-}
+export {createFilmsListTemplate};
