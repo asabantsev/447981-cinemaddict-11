@@ -16,27 +16,29 @@ export default class Sort extends AbstractComponent {
     return this.currenSortType;
   }
 
+  onSortTypeChange(handler, evt) {
+    evt.preventDefault();
+
+    if (evt.target.tagName !== `A`) {
+      return;
+    }
+
+    const sortType = evt.target.dataset.sortType;
+
+    if (this.currenSortType === sortType) {
+      return;
+    }
+
+    this.getElement().querySelector(`.sort__button--active`).classList.remove(`sort__button--active`);
+
+    evt.target.classList.add(`sort__button--active`);
+
+    this.currenSortType = sortType;
+
+    handler(this.currenSortType);
+  }
+
   setSortTypeChangeHandler(handler) {
-    this.getElement().addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-
-      if (evt.target.tagName !== `A`) {
-        return;
-      }
-
-      const sortType = evt.target.dataset.sortType;
-
-      if (this.currenSortType === sortType) {
-        return;
-      }
-
-      this.getElement().querySelector(`.sort__button--active`).classList.remove(`sort__button--active`);
-
-      evt.target.classList.add(`sort__button--active`);
-
-      this.currenSortType = sortType;
-
-      handler(this.currenSortType);
-    });
+    this.getElement().addEventListener(`click`, this.onSortTypeChange.bind(this, handler));
   }
 }

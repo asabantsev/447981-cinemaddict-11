@@ -74,6 +74,18 @@ export default class PageController {
     }
   }
 
+  onSortTypeChange(sortType) {
+    const siteFilmsElement = document.querySelector(`.films`);
+    const mainFilmsContainer = siteFilmsElement.querySelector(`.films-list__container`);
+
+    const films = generateFilms(Page.MAIN_FILMS_COUNT);
+    let showingFilmsCount = Page.SHOWING_FILMS_COUNT_ON_START;
+
+    const sortedFilms = getSortedFilms[sortType](films, 0, showingFilmsCount);
+    mainFilmsContainer.innerHTML = ``;
+    sortedFilms.forEach((film) => this.renderFilmCard(film, mainFilmsContainer));
+  }
+
   render() {
     const siteMainElement = document.querySelector(`.main`);
     const sortComponent = new SortComponent();
@@ -94,12 +106,7 @@ export default class PageController {
     let showingFilmsCount = Page.SHOWING_FILMS_COUNT_ON_START;
     films.slice(0, showingFilmsCount).forEach((sortedFilms) => this.renderFilmCard(sortedFilms, mainFilmsContainer));
 
-    sortComponent.setSortTypeChangeHandler((sortType) => {
-      const sortedFilms = getSortedFilms[sortType](films, 0, showingFilmsCount);
-      mainFilmsContainer.innerHTML = ``;
-      sortedFilms.forEach((film) => this.renderFilmCard(film, mainFilmsContainer));
-      render(mainFilmsList, showMoreButtonComponent, RenderPosition.BEFOREEND);
-    });
+    sortComponent.setSortTypeChangeHandler(this.onSortTypeChange.bind(this));
 
     const showMoreButtonComponent = new ShowMoreButtonComponent();
     render(mainFilmsList, showMoreButtonComponent, RenderPosition.BEFOREEND);
