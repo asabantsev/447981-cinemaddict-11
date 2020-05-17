@@ -33,3 +33,9 @@ export const Filters = [
     isActive: false,
   }
 ];
+
+export const SortType = {
+  DATE: `date`,
+  RATING: `rating`,
+  DEFAULT: `default`,
+};

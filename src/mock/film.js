@@ -68,7 +68,7 @@ const generateFilm = () => {
   return {
     title: getRandomArrayItem(Titles),
     titleOriginal: `Original: The Great Flamarion`,
-    rating: getRandomIntegerNumber(5, 10) + `,` + getRandomIntegerNumber(0, 10),
+    rating: (Math.random() * 10).toFixed(1),
     age: `18+`,
     poster: getRandomArrayItem(Posters),
     description: getRandomArrayItem(Description),
@@ -79,7 +79,7 @@ const generateFilm = () => {
     country: `USA`,
     genre: getRandomArrayItem(Genres),
     genres: Genres,
-    year: `1929`,
+    year: `19` + getRandomIntegerNumber(5, 10) + getRandomIntegerNumber(1, 10),
     releaseDate: `30 March 1945`,
     commentsCount: getRandomIntegerNumber(0, 5),
     comments: Comments,

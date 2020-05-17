@@ -1,3 +1,4 @@
+import SortComponent from '../components/sort/sort.js';
 import FilmsBlockComponent from '../components/films-block/films-block.js';
 import FilmsListComponent from '../components/films-list/films-list.js';
 import FilmCardComponent from '../components/film-card/film-card.js';
@@ -9,6 +10,7 @@ import {generateFilms} from '../mock/film.js';
 import {render, remove, RenderPosition} from '../utils/render.js';
 import {onEscKeyDown} from '../utils/common.js';
 import {Page, ExtraFilmsName} from "../consts/consts.js";
+import {getSortedFilms} from "../components/sort/templates/sort.js";
 
 export default class PageController {
   constructor(container) {
@@ -72,24 +74,39 @@ export default class PageController {
     }
   }
 
+  onSortTypeChange(sortType) {
+    const siteFilmsElement = document.querySelector(`.films`);
+    const mainFilmsContainer = siteFilmsElement.querySelector(`.films-list__container`);
+
+    const films = generateFilms(Page.MAIN_FILMS_COUNT);
+    let showingFilmsCount = Page.SHOWING_FILMS_COUNT_ON_START;
+
+    const sortedFilms = getSortedFilms[sortType](films, 0, showingFilmsCount);
+    mainFilmsContainer.innerHTML = ``;
+    sortedFilms.forEach((film) => this.renderFilmCard(film, mainFilmsContainer));
+  }
+
   render() {
     const siteMainElement = document.querySelector(`.main`);
+    const sortComponent = new SortComponent();
+    render(siteMainElement, sortComponent, RenderPosition.BEFOREEND);
     render(siteMainElement, new FilmsBlockComponent(), RenderPosition.BEFOREEND);
     const siteFilmsElement = document.querySelector(`.films`);
     render(siteFilmsElement, new FilmsListComponent(), RenderPosition.BEFOREEND);
 
     const mainFilmsContainer = siteFilmsElement.querySelector(`.films-list__container`);
-
-    const films = generateFilms(Page.MAIN_FILMS_COUNT);
-    let showingFilmsCount = Page.SHOWING_FILMS_COUNT_ON_START;
-    films.slice(0, showingFilmsCount).forEach((film) => this.renderFilmCard(film, mainFilmsContainer));
-
     const mainFilmsList = siteFilmsElement.querySelector(`.films-list`);
 
     if (Page.MAIN_FILMS_COUNT === 0) {
       render(mainFilmsList, new NoFilmsComponent(), RenderPosition.BEFOREEND);
       remove(showMoreButtonComponent);
     }
+
+    const films = generateFilms(Page.MAIN_FILMS_COUNT);
+    let showingFilmsCount = Page.SHOWING_FILMS_COUNT_ON_START;
+    films.slice(0, showingFilmsCount).forEach((sortedFilms) => this.renderFilmCard(sortedFilms, mainFilmsContainer));
+
+    sortComponent.setSortTypeChangeHandler(this.onSortTypeChange.bind(this));
 
     const showMoreButtonComponent = new ShowMoreButtonComponent();
     render(mainFilmsList, showMoreButtonComponent, RenderPosition.BEFOREEND);
