@@ -12,15 +12,12 @@ export default class FilmCard extends AbstractComponent {
     return createFilmCardTemplate(this._film);
   }
 
-  setFilmCardTitleHandler(handler) {
-    this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, handler);
-  }
-
-  setFilmCardPosterHandler(handler) {
-    this.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, handler);
-  }
-
-  setFilmCardCommentsHandler(handler) {
-    this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, handler);
+  setClickHandler(handler) {
+    this.getElement().querySelector(`.film-card__title`)
+      .addEventListener(`click`, handler);
+    this.getElement().querySelector(`.film-card__poster`)
+      .addEventListener(`click`, handler);
+    this.getElement().querySelector(`.film-card__comments`)
+      .addEventListener(`click`, handler);
   }
 }
