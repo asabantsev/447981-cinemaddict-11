@@ -1,3 +1,5 @@
+import {filmFilmsList} from '../../../utils/render-films.js';
+
 const createExtraFilmsBlockTemplate = (title) => {
   return (
     `<section class="films-list--extra">
@@ -8,4 +10,12 @@ const createExtraFilmsBlockTemplate = (title) => {
   );
 };
 
-export {createExtraFilmsBlockTemplate};
+const topRatedList = [...filmFilmsList].slice().sort((first, second) => {
+  return second.rate - first.rate;
+});
+
+const mostComentedList = [...filmFilmsList].slice().sort((first, second) => {
+  return second.comments.length - first.comments.length;
+});
+
+export {createExtraFilmsBlockTemplate, topRatedList, mostComentedList};
