@@ -1,3 +1,7 @@
+import {ControlType} from '../../../consts/consts.js';
+
+const isChecked = (controlProperty) => controlProperty ? `checked` : ``;
+
 const createFilmsDetailsTemplate = ({title, titleOriginal, rating, description, duration, country, poster, age, directorName, writersName, actorsName, releaseDate, comments, genres}) => {
   const createGenreMarkup = (genre) => {
     return (
@@ -71,17 +75,18 @@ const createFilmsDetailsTemplate = ({title, titleOriginal, rating, description, 
     );
   };
 
-  const createFilmDetailsControlsMarkup = () => {
+  const createFilmDetailsControlsMarkup = (inWatchlist, inHistory, inFavorites) => {
+
     return (
       `<section class="film-details__controls">
-        <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
-        <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
+        <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist" ${isChecked(inWatchlist)}>
+        <label data-control-type="${ControlType.WATCHLIST}" for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
 
-        <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
-        <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
+        <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched" ${isChecked(inHistory)}>
+        <label data-control-type="${ControlType.HISTORY}" for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
 
-        <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
-        <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
+        <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite" ${isChecked(inFavorites)}>
+        <label data-control-type="${ControlType.FAVORITES}" for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
       </section>`
     );
   };

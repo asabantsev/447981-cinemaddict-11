@@ -4,8 +4,9 @@ import AbstractSmartComponent from '../abstract-smart-component.js';
 export default class FilmCard extends AbstractSmartComponent {
   constructor(film) {
     super();
-
     this._film = film;
+    this._element = null;
+
     this._setControlsChangeHandler = null;
   }
 
@@ -31,7 +32,7 @@ export default class FilmCard extends AbstractSmartComponent {
   }
 
   setControlsChangeHandler(handler) {
-    this.getElement().addEventListener(`click`, (evt) => {
+    this.getElement().querySelector(`.film-card__controls`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
       if (evt.target.tagName !== `BUTTON`) {
@@ -39,7 +40,7 @@ export default class FilmCard extends AbstractSmartComponent {
       }
 
       const controlType = evt.target.dataset.controlType;
-      this._film[controlType] = this._film[controlType] ? false : true;
+      this._film[controlType] = !this._film[controlType];
       this.rerender();
 
       handler();
