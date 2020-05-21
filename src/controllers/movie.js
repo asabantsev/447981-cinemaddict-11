@@ -4,8 +4,9 @@ import {render, remove, RenderPosition} from "../utils/render.js";
 import {onEscKeyDown} from '../utils/common.js';
 
 export default class MovieController {
-  constructor(container) {
+  constructor(container, onDataChange) {
     this._container = container;
+    this._onDataChange = onDataChange;
 
     this._filmCardComponent = null;
     this._filmDetailsComponent = null;
@@ -18,6 +19,12 @@ export default class MovieController {
 
     this._filmCardComponent.setClickHandler(() => {
       this.renderFilmDetails(this._filmDetailsComponent);
+    });
+
+    this._filmCardComponent.setControlsChangeHandler(() => {
+      this._onDataChange(this, film, Object.assign({}, film, {
+        controlType: !film.controlType,
+      }));
     });
   }
 
