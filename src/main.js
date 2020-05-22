@@ -12,10 +12,10 @@ const headerProfileComponent = new HeaderProfileComponent();
 const navigationComponent = new SiteMenuComponent();
 const filmContainerComponent = new FilmsBlockComponent();
 
-render(header, headerProfileComponent, RenderPosition.BEFOREEND);
-render(main, navigationComponent, RenderPosition.BEFOREEND);
+render[RenderPosition.BEFOREEND](header, headerProfileComponent);
+render[RenderPosition.BEFOREEND](main, navigationComponent);
 
-render(main, filmContainerComponent, RenderPosition.BEFOREEND);
+render[RenderPosition.BEFOREEND](main, filmContainerComponent);
 
 const pageController = new PageController(filmContainerComponent);
 pageController.render(filmFilmsList);

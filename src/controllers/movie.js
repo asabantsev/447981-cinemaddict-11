@@ -26,26 +26,37 @@ export default class MovieController {
     this._filmCardComponent = new FilmCardComponent(film);
     this._filmDetailsComponent = new FilmsDetailsComponent(film);
 
+    this._replaceOldFilm(oldFilmCardComponent, oldPopupComponent);
+    this._setHandlers(film);
+  }
+
+  _onFilmCardClick() {
+    this.renderFilmDetails(this._filmDetailsComponent);
+  }
+
+  _onFilmCardControlsClick(film) {
+    this._onDataChange(this, film, Object.assign({}, film, {
+      controlType: !film.controlType,
+    }));
+  }
+
+  _onFilmDetailsControlsClick() {
+    this._filmCardComponent.rerender();
+  }
+
+  _setHandlers(film) {
+    this._filmCardComponent.setClickHandler(() => this._onFilmCardClick());
+    this._filmCardComponent.setControlsChangeHandler(() => this._onFilmCardControlsClick(film));
+    this._filmDetailsComponent.setControlsChangeHandler(() => this._onFilmDetailsControlsClick());
+  }
+
+  _replaceOldFilm(oldFilmCardComponent, oldPopupComponent) {
     if (oldFilmCardComponent && oldPopupComponent) {
       replace(this._filmCardComponent, oldFilmCardComponent);
       replace(this._filmDetailsComponent, oldPopupComponent);
     } else {
-      render(this._container, this._filmCardComponent, RenderPosition.BEFOREEND);
+      render[RenderPosition.BEFOREEND](this._container, this._filmCardComponent);
     }
-
-    this._filmCardComponent.setClickHandler(() => {
-      this.renderFilmDetails(this._filmDetailsComponent);
-    });
-
-    this._filmCardComponent.setControlsChangeHandler(() => {
-      this._onDataChange(this, film, Object.assign({}, film, {
-        controlType: !film.controlType,
-      }));
-    });
-
-    this._filmDetailsComponent.setControlsChangeHandler(() => {
-      this._filmCardComponent.rerender();
-    });
   }
 
   setDefaultView() {
@@ -57,7 +68,7 @@ export default class MovieController {
   renderFilmDetails() {
     const siteFooterElement = document.querySelector(`.footer`);
 
-    render(siteFooterElement, this._filmDetailsComponent, RenderPosition.AFTEREND);
+    render[RenderPosition.AFTEREND](siteFooterElement, this._filmDetailsComponent);
     document.addEventListener(`keydown`, onEscKeyDown);
 
     this._filmDetailsComponent.setCloseButtonHandler(() => {

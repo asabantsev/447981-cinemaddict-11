@@ -36,7 +36,7 @@ export default class PageController {
     remove(this._showMoreButtonComponent);
 
     if (this._films.length > Page.SHOWING_FILMS_COUNT_ON_START) {
-      render(this._filmListComponent.getElement(), this._showMoreButtonComponent, RenderPosition.BEFOREEND);
+      render[RenderPosition.BEFOREEND](this._filmListComponent.getElement(), this._showMoreButtonComponent);
       this._showMoreButtonComponent.setClickHandler(() => {
         this._onButtonShowClick();
       });
@@ -45,7 +45,7 @@ export default class PageController {
 
   renderFilmList(container) {
 
-    render(container, this._filmListComponent, RenderPosition.BEFOREEND);
+    render[RenderPosition.BEFOREEND](container, this._filmListComponent);
 
     const filmListContainer = this._filmListComponent.getElement().querySelector(`.films-list__container`);
 
@@ -56,8 +56,8 @@ export default class PageController {
   }
 
   renderExtraFilmLists(container) {
-    render(container, this._topRatedComponent, RenderPosition.BEFOREEND);
-    render(container, this._mostComentedComponent, RenderPosition.BEFOREEND);
+    render[RenderPosition.BEFOREEND](container, this._topRatedComponent);
+    render[RenderPosition.BEFOREEND](container, this._mostComentedComponent);
 
     const topRatedContainer = this._topRatedComponent.getElement().querySelector(`.films-list__container`);
     const mostComentedContainer = this._mostComentedComponent.getElement().querySelector(`.films-list__container`);
@@ -74,14 +74,14 @@ export default class PageController {
 
     const container = this._container.getElement();
 
-    render(container, this._sortComponent, RenderPosition.BEFOREBEGIN);
+    render[RenderPosition.BEFOREBEGIN](container, this._sortComponent);
 
     if (Page.MAIN_FILMS_COUNT === 0) {
-      render(container, this._noFilmComponent, RenderPosition.AFTERBEGIN);
+      render[RenderPosition.AFTERBEGIN](container, this._noFilmComponent);
       return;
     }
 
-    render(this._filmListComponent.getElement(), this._showMoreButtonComponent, RenderPosition.BEFOREEND);
+    render[RenderPosition.BEFOREEND](this._filmListComponent.getElement(), this._showMoreButtonComponent);
     this.renderFilmList(container, this._films);
     this.renderExtraFilmLists(container);
   }

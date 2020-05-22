@@ -10,12 +10,12 @@ const createExtraFilmsBlockTemplate = (title) => {
   );
 };
 
-const topRatedList = [...filmFilmsList].slice().sort((first, second) => {
-  return second.rate - first.rate;
-});
+const sortRules = {
+  TOP_RATED: (first, second) => second.rate - first.rate,
+  MOST_COMMENTED: (first, second) => second.comments.length - first.comments.length,
+};
 
-const mostComentedList = [...filmFilmsList].slice().sort((first, second) => {
-  return second.comments.length - first.comments.length;
-});
+const topRatedList = [...filmFilmsList].sort(sortRules.TOP_RATED);
+const mostComentedList = [...filmFilmsList].sort(sortRules.MOST_COMMENTED);
 
 export {createExtraFilmsBlockTemplate, topRatedList, mostComentedList};
