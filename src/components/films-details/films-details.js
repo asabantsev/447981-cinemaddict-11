@@ -40,11 +40,8 @@ export default class FilmsDetails extends AbstractSmartComponent {
   }
 
   setControlsChangeHandler(handler) {
-    this.getElement().querySelector(`.film-details__controls`).addEventListener(`click`, (evt) => {
-      this._ControlChange(evt);
-      handler();
-    });
-    this._setControlsChangeHandler = handler;
+    this.getElement().querySelector(`.film-details__controls`).addEventListener(`click`, handler);
+    this._ControlChange = handler;
   }
 
   _ControlChange(evt) {
@@ -60,12 +57,10 @@ export default class FilmsDetails extends AbstractSmartComponent {
     this.rerender();
   }
 
-  setEmojiChangeHandler() {
-    this.getElement().querySelectorAll(`.film-details__emoji-label`).forEach((label) => {
-      label.addEventListener(`click`, () => {
-        this._onEmojiChange(label);
-      });
-    });
+  _setEmojiChangeHandler() {
+    const emojiAddBlock = this.getElement().querySelector(`.film-details__add-emoji-label`);
+
+    [...this.getElement().querySelectorAll(`.film-details__emoji-label`)].map(this._onEmojiChange(emojiAddBlock));
   }
 
   _onEmojiChange(label) {
