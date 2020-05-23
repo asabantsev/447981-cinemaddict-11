@@ -1,4 +1,8 @@
-const createFilmCardTemplate = ({title, rating, year, duration, genre, poster, description, commentsCount}) => {
+import {ControlType} from '../../../consts/consts.js';
+
+const isActive = (controlProperty) => controlProperty ? `film-card__controls-item--active` : ``;
+
+const createFilmCardTemplate = ({title, rating, year, duration, genre, poster, description, commentsCount, inWatchlist, inHistory, inFavorites}) => {
 
   return (
     `<article class="film-card">
@@ -13,12 +17,12 @@ const createFilmCardTemplate = ({title, rating, year, duration, genre, poster, d
       <p class="film-card__description">${description}</p>
       <a class="film-card__comments">${commentsCount} comments</a>
       <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
+        <button data-control-type="${ControlType.WATCHLIST}" class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${isActive(inWatchlist)}">Add to watchlist</button>
+        <button data-control-type="${ControlType.HISTORY}" class="film-card__controls-item button film-card__controls-item--mark-as-watched ${isActive(inHistory)}">Mark as watched</button>
+        <button data-control-type="${ControlType.FAVORITES}" class="film-card__controls-item button film-card__controls-item--favorite ${isActive(inFavorites)}">Mark as favorite</button>
       </form>
     </article>`
   );
 };
 
-export {createFilmCardTemplate};
+export {createFilmCardTemplate, isActive};

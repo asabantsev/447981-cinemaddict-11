@@ -1,6 +1,8 @@
 export const RenderPosition = {
   AFTEREND: `afterend`,
   BEFOREEND: `beforeend`,
+  AFTERBEGIN: `afterbegin`,
+  BEFOREBEGIN: `beforebegin`,
 };
 
 export const createElement = (template) => {
@@ -10,27 +12,26 @@ export const createElement = (template) => {
   return newElement.firstChild;
 };
 
-const RenderPositionCase = {
-  afterbegin: (container, component) => {
-    container.prepend(component.getElement());
-  },
-  beforeend: (container, component) => {
-    container.append(component.getElement());
-  },
-};
-
-export const render = (container, component, place) => {
-  switch (place) {
-    case RenderPosition.AFTEREND:
-      RenderPositionCase.afterbegin(container, component);
-      break;
-    case RenderPosition.BEFOREEND:
-      RenderPositionCase.beforeend(container, component);
-      break;
-  }
+export const render = {
+  [RenderPosition.BEFOREBEGIN]: (container, component) => container.before(component.getElement()),
+  [RenderPosition.BEFOREEND]: (container, component) => container.append(component.getElement()),
+  [RenderPosition.AFTERBEGIN]: (container, component) => container.prepend(component.getElement()),
+  [RenderPosition.AFTEREND]: (container, component) => container.after(component.getElement()),
 };
 
 export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
+};
+
+export const replace = (newComponent, oldComponent) => {
+  const parentElement = oldComponent.getElement().parentElement;
+  const newElement = newComponent.getElement();
+  const oldElement = oldComponent.getElement();
+
+  const isExistElements = !!(parentElement && newElement && oldElement);
+
+  if (isExistElements && parentElement.contains(oldElement)) {
+    parentElement.replaceChild(newElement, oldElement);
+  }
 };
