@@ -74,6 +74,7 @@ export default class MovieController {
     this._filmDetailsComponent.setCloseButtonHandler(() => {
       remove(this._filmDetailsComponent);
     });
+    this._filmDetailsComponent.setEmojiChangeHandler();
   }
 
   _onFilmDetailsClose() {

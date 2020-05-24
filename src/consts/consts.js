@@ -45,3 +45,11 @@ export const ControlType = {
   HISTORY: `inHistory`,
   FAVORITES: `inFavorites`,
 };
+
+export const FormatDate = {
+  COMMENT_DATE: `YYYY/MM/DD HH:MM`,
+  FILM_DURATION: `h[h] mm[m]`,
+  FILM_DURATION_SHORT: `mm[m]`,
+  RELEASE_YEAR: `YYYY`,
+  RELEASE_DATE: `DD MMMM YYYY`
+};

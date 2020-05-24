@@ -1,3 +1,8 @@
+import {FormatDate} from '../consts/consts.js';
+import moment from 'moment';
+
+export const FIRST_RELEASE_DATE = [1920, 1, 1];
+
 const Titles = [
   `Made For Each Other`,
   `The Great Flamarion`,
@@ -36,7 +41,7 @@ const Comments = [{
   emoji: `smile`,
   text: `Interesting setting and a good cast`,
   author: `Tim Macoveev`,
-  day: `2019/12/31 23:59`,
+  day: `2 days ago`,
 }, {
   emoji: `sleeping`,
   text: `Booooooooooring`,
@@ -64,6 +69,14 @@ const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
 };
 
+const formatDate = (date, format) => {
+  return moment(date).format(format);
+};
+
+const getRandomDate = (start, end) => {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+};
+
 const generateFilm = () => {
   return {
     title: getRandomArrayItem(Titles),
@@ -79,7 +92,7 @@ const generateFilm = () => {
     country: `USA`,
     genre: getRandomArrayItem(Genres),
     genres: Genres,
-    year: `19` + getRandomIntegerNumber(5, 10) + getRandomIntegerNumber(1, 10),
+    year: formatDate(getRandomDate(new Date([...FIRST_RELEASE_DATE]), new Date()), FormatDate.RELEASE_YEAR),
     releaseDate: `30 March 1945`,
     commentsCount: getRandomIntegerNumber(0, 5),
     comments: Comments,
